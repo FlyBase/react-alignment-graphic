@@ -1,7 +1,7 @@
 {
-  "name": "react-alignment-graphic2",
+  "name": "react-alignment-graphic",
   "version": "1.0.0",
-  "description": "react-alignment-graphic2 React component",
+  "description": "react-alignment-graphic React component",
   "main": "lib/index.js",
   "jsnext:main": "es/index.js",
   "module": "es/index.js",

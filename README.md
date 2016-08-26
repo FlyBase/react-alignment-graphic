@@ -1,10 +1,10 @@
-# react-alignment-graphic2
+# react-alignment-graphic
 
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
 [![Coveralls][coveralls-badge]][coveralls]
 
-Describe react-alignment-graphic2 here.
+Describe react-alignment-graphic here.
 
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
 [build]: https://travis-ci.org/user/repo

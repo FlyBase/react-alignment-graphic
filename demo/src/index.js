@@ -6,7 +6,7 @@ import Component from '../../src'
 let Demo = React.createClass({
   render() {
     return <div>
-      <h1>react-alignment-graphic2 Demo</h1>
+      <h1>react-alignment-graphic Demo</h1>
       <Component/>
     </div>
   }
