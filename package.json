@@ -36,7 +36,10 @@
   "author": "",
   "homepage": "",
   "license": "MIT",
-  "repository": "",
+  "repository": {
+      "type": "git",
+      "url" : "git@github.com:FlyBase/react-alignment-graphic.git"
+  },
   "keywords": [
     "react-component"
   ]
