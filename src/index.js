@@ -1,17 +1,17 @@
 import React, { PropTypes } from 'react';
 import ContainerDimensions from 'react-container-dimensions';
-import AlignmentGraphic from './AlignmentGraphic';
+import AlignmentCanvas from './AlignmentCanvas';
 
-function AlignmentWrapper(props) {
+function AlignmentGraphic(props) {
     return (
         <ContainerDimensions>
-            { ({ width }) => <AlignmentGraphic width={width} {...props} /> }
+            { ({ width }) => <AlignmentCanvas width={width} {...props} /> }
         </ContainerDimensions>
     );
 }
 
-AlignmentWrapper.propTypes = {
+AlignmentGraphic.propTypes = {
     blastResult: PropTypes.object.isRequired,
 };
 
-export default AlignmentWrapper;
+export default AlignmentGraphic;

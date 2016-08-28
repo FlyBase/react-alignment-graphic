@@ -6,7 +6,7 @@ import Query from './Query';
 import Hits from './Hits';
 import SlideRule from './SlideRule';
 
-class AlignmentGraphic extends Component {
+class AlignmentCanvas extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -89,7 +89,7 @@ class AlignmentGraphic extends Component {
     }
 }
 
-AlignmentGraphic.propTypes = {
+AlignmentCanvas.propTypes = {
     blastResult: PropTypes.shape({
         BlastOutput2: PropTypes.arrayOf(
             PropTypes.shape({
@@ -100,6 +100,6 @@ AlignmentGraphic.propTypes = {
     width: PropTypes.number.isRequired
 };
 
-AlignmentGraphic.defaultProps = {
+AlignmentCanvas.defaultProps = {
 };
-export default AlignmentGraphic;
+export default AlignmentCanvas;
