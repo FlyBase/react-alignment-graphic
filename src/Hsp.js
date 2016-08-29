@@ -6,21 +6,19 @@ class Hsp extends Component {
         super(props);
         this.state = {
             color: 'black',
-            active: false,
         };
-        this.toggleHit = this.toggleHit.bind(this);
-        this._isMounted = false;
     }
+
     componentWillMount() {
         this.setState({
-            color: this.scoreToColor(this.props.score),
+            color: this.scoreToColor(this.props.score,this.props.highlight),
         });
     }
-    componentDidMount() {
-        this._isMounted = true;
-    }
-    componentWillUnmount() {
-        this._isMounted = false;
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            color: this.scoreToColor(nextProps.score,nextProps.highlight),
+        });
     }
 
     scoreToColor(score, highlight = false) {
@@ -41,25 +39,13 @@ class Hsp extends Component {
         return '#000000';
     }
 
-    toggleHit(score) {
-        if (this._isMounted) {
-            this.setState({
-                color: this.scoreToColor(score,!this.state.active),
-                active: !this.state.active
-            });
-        }
-    }
-
     render() {
         const { x, y, width, height, score } = this.props;
-
         return (
             <Rect
                 x={x} y={y} width={width} height={height}
                 fill={this.state.color} 
                 stroke='black' strokeWidth={1}
-                onMouseEnter={() => this.toggleHit(score)}
-                onMouseLeave={() => this.toggleHit(score)}
             />
         );
     }
@@ -71,10 +57,12 @@ Hsp.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     score: PropTypes.number,
+    highlight: PropTypes.bool,
 };
 
 Hsp.defaultProps = {
-    score: 0
+    score: 0,
+    highlight: false,
 }
 
 export default Hsp;

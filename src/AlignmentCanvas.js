@@ -19,7 +19,6 @@ class AlignmentCanvas extends Component {
     }
 
     showRuler(evt) {
-        console.debug("Show ruler event");
         const x = evt.target.getStage().getPointerPosition().x;
         this.setState({
             isRulerVisible: true,
@@ -28,13 +27,13 @@ class AlignmentCanvas extends Component {
     }
 
     hideRuler(evt) {
-        console.debug("Hide ruler event");
         this.setState({ isRulerVisible: false });
         evt.cancelBubble = true;
     }
 
     render() {
-        const report = this.props.blastResult.BlastOutput2[0].report;
+        const { blastResult } = this.props;
+        const report = (blastResult['BlastOutput2']) ? blastResult.BlastOutput2[0].report : blastResult.report;
         const search = report.results.search;
         const seqLen = search.query_len;
         const padding = 50;
@@ -55,8 +54,8 @@ class AlignmentCanvas extends Component {
         return (
             <Stage width={canvasWidth} height={canvasHeight}>
                 <Layer
-                    onClick={(evt) => this.showRuler(evt)}
-                    onTap={(evt) => this.showRuler(evt)}>
+                    onClick={this.showRuler}
+                    onTap={this.showRuler}>
                     <Group>
                         {/** 
                            Transparent rectangle for event listening.
@@ -72,7 +71,7 @@ class AlignmentCanvas extends Component {
                     </Group>
                     <Group> 
                         <Query scale={scale} rectStart={rectStart} rectWidth={scale(seqLen) - rectStart} />
-                        <Hits y={70} hits={search.hits} scale={scale} setCurrentHit={this.setCurrentHit} />
+                        <Hits y={80} hits={search.hits} scale={scale} />
                     </Group>
                     <Group visible={this.state.isRulerVisible}>
                         <SlideRule 
@@ -90,13 +89,18 @@ class AlignmentCanvas extends Component {
 }
 
 AlignmentCanvas.propTypes = {
-    blastResult: PropTypes.shape({
-        BlastOutput2: PropTypes.arrayOf(
-            PropTypes.shape({
-                report: PropTypes.object
-            })
-        ),
-    }).isRequired,
+    blastResult: PropTypes.oneOfType([
+                                     PropTypes.shape({
+                                        BlastOutput2: PropTypes.arrayOf(
+                                            PropTypes.shape({
+                                                report: PropTypes.object
+                                            })
+                                        ),
+                                     }),
+                                     PropTypes.shape({
+                                         report: PropTypes.object
+                                     }),
+    ]).isRequired,
     width: PropTypes.number.isRequired
 };
 

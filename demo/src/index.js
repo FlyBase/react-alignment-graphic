@@ -16,7 +16,7 @@ let Demo = React.createClass({
                 <h2>Responsive</h2>
                 <div>
                     <h1>react-alignment-graphic Demo</h1>
-                    <AlignmentGraphic blastResult={jsonResult}/>
+                    <AlignmentGraphic blastResult={jsonResult.BlastOutput2[0]}/>
                 </div>
             </div>
         );

@@ -2,30 +2,32 @@ import React, { PropTypes } from 'react';
 import { Group } from 'react-konva';
 import { v4 } from 'node-uuid';
 
-import Hsp from './Hsp';
+import { min, max } from 'd3-array';
+
+import Hit from './Hit';
+
 
 function Hits(props) {
     const { y, scale, hits } = props;
     let currentY = y;
 
-    const hitElems = hits.map((hit,i) => {
-        return (
-            <Group key={v4()} >
-                { hit.hsps.map((hsp, j) => {
-                    const height = 7;
-                    const x = scale(hsp.query_from);
-                    const width = scale(hsp.query_to) - x;
-                    currentY += (3 + height);
-                    
-                    return (
-                        <Hsp x={x} y={currentY} key={v4()}
-                            width={width} height={height}
-                            score={hsp.score} />
-                    );
-                })}
-            </Group>
+    let hitElems = [];
+    for (const hit of hits) {
+        // Figure out the extent of the entire hit so we can wrap it in 
+        // an event listening rectangle.
+        const hitX = scale(min(hit.hsps,(hsp) => hsp.query_from));
+        const hitW = scale(max(hit.hsps,(hsp) => hsp.query_to)) - hitX;
+        const hitH = 10 * hit.hsps.length;  // 10px per hit.
+
+        hitElems.push(
+            <Hit key={hit.num} hsps={hit.hsps}
+                scale={scale} y={currentY}
+                hitX={hitX} hitW={hitW}
+                hitH={hitH}
+            />
         );
-    });
+        currentY = currentY + (hitH);
+    }
 
     return (
         <Group>
