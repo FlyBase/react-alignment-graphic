@@ -8,31 +8,23 @@ class Hit extends Component {
     constructor(props) {
         super(props);
         this.toggleActive = this.toggleActive.bind(this);
-
+        this.handleClickTap = this.handleClickTap.bind(this);
         this.state = {
             isActive: false,
         };
-        //this._isMounted = false;
     }
-
-    /**
-     * Checking for mounted state is generally frowned upon.
-     * However, it is done here do to how the canvas 
-     */
-    /*componentDidMount() {
-        this._isMounted = true;
-    }
-
-    componentWillUnmount() {
-        this._isMounted = false;
-        }*/
 
     toggleActive(evt, isActive = this.state.isActive) {
         this.setState({isActive: !isActive});
     }
 
+    handleClickTap(evt) {
+        this.props.hitClickHandler(evt, this.props.hit);
+    }
+
     render() {
-        const { y, scale, hsps, hitX, hitW, hitH } = this.props;
+        const { y, scale, hit, hitX, hitW, hitH } = this.props;
+        const hsps = hit.hsps;
         let currentY = y;
 
         let hspElems = [];
@@ -41,38 +33,43 @@ class Hit extends Component {
             const x = scale(hsp.query_from);
             const width = scale(hsp.query_to) - x;
             hspElems.push(
-                <Hsp x={x} y={currentY} key={hsp.num}
+                <Hsp hsp={hsp} x={x} y={currentY} key={hsp.num}
                     width={width} height={height}
                     score={hsp.score}
-                    highlight={this.state.isActive} />
+                    highlight={this.state.isActive}
+                    hspClickHandler={this.props.hspClickHandler} />
             );
             currentY += (3 + height);
         }
 
         return (
-            <Group>
-                {hspElems}
+            <Group onClick={this.handleClickTap} onTap={this.handleClickTap}>
                 {/** 
                    Event listening shape.
-                  **/}
+                   Leave out for now.
                 <Rect
                     x={hitX} y={y} width={hitW} height={hitH}
                     opacity={0} fill='black' 
                     onMouseEnter={this.toggleActive}
                     onMouseLeave={this.toggleActive}
-                />
+                    /> **/}
+                {hspElems}
             </Group>
         );
     }
 }
 
 Hit.propTypes = {
-    hsps: PropTypes.arrayOf(PropTypes.object).isRequired,
+    hit: PropTypes.shape({
+        hsps: PropTypes.arrayOf(PropTypes.object)
+    }).isRequired,
     scale: PropTypes.func.isRequired,
     y: PropTypes.number,
     hitX: PropTypes.number,
     hitW: PropTypes.number,
     hitH: PropTypes.number,
+    hitClickHandler: PropTypes.func,
+    hspClickHandler: PropTypes.func,
 };
 
 Hit.defaultProps = {

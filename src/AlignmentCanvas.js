@@ -71,7 +71,9 @@ class AlignmentCanvas extends Component {
                     </Group>
                     <Group> 
                         <Query scale={scale} rectStart={rectStart} rectWidth={scale(seqLen) - rectStart} />
-                        <Hits y={80} hits={search.hits} scale={scale} />
+                        <Hits y={80} hits={search.hits} scale={scale}
+                            hitClickHandler={this.props.hitClickHandler}
+                            hspClickHandler={this.props.hspClickHandler} />
                     </Group>
                     <Group visible={this.state.isRulerVisible}>
                         <SlideRule 
@@ -101,9 +103,13 @@ AlignmentCanvas.propTypes = {
                                          report: PropTypes.object
                                      }),
     ]).isRequired,
-    width: PropTypes.number.isRequired
+    width: PropTypes.number.isRequired,
+    hitClickHandler: PropTypes.func,
+    hspClickHandler: PropTypes.func,
 };
 
 AlignmentCanvas.defaultProps = {
+    hitClickHandler: () => {},
+    hspClickHandler: () => {},
 };
 export default AlignmentCanvas;

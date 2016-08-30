@@ -20,17 +20,19 @@ function Hits(props) {
         const hitH = 10 * hit.hsps.length;  // 10px per hit.
 
         hitElems.push(
-            <Hit key={hit.num} hsps={hit.hsps}
+            <Hit key={hit.num} hit={hit}
                 scale={scale} y={currentY}
                 hitX={hitX} hitW={hitW}
                 hitH={hitH}
+                hitClickHandler={props.hitClickHandler}
+                hspClickHandler={props.hspClickHandler}
             />
         );
         currentY = currentY + (hitH);
     }
 
     return (
-        <Group>
+        <Group> 
             {hitElems}
         </Group>
     );
@@ -40,6 +42,8 @@ Hits.propTypes = {
     hits: PropTypes.arrayOf(PropTypes.object).isRequired,
     scale: PropTypes.func.isRequired,
     y: PropTypes.number,
+    hitClickHandler: PropTypes.func,
+    hspClickHandler: PropTypes.func,
 };
 
 Hits.defaultProps = {

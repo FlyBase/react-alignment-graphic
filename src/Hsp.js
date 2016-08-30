@@ -4,6 +4,7 @@ import { Rect } from 'react-konva';
 class Hsp extends Component {
     constructor(props) {
         super(props);
+        this.handleClickTap = this.handleClickTap.bind(this);
         this.state = {
             color: 'black',
         };
@@ -19,6 +20,10 @@ class Hsp extends Component {
         this.setState({
             color: this.scoreToColor(nextProps.score,nextProps.highlight),
         });
+    }
+
+    handleClickTap(evt) {
+        this.props.hspClickHandler(evt, this.props.hsp);
     }
 
     scoreToColor(score, highlight = false) {
@@ -46,6 +51,8 @@ class Hsp extends Component {
                 x={x} y={y} width={width} height={height}
                 fill={this.state.color} 
                 stroke='black' strokeWidth={1}
+                onClick={this.handleClickTap}
+                onTap={this.handleClickTap}
             />
         );
     }
@@ -56,8 +63,10 @@ Hsp.propTypes = {
     y: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
+    hsp: PropTypes.object,
     score: PropTypes.number,
     highlight: PropTypes.bool,
+    hspClickHandler: PropTypes.func,
 };
 
 Hsp.defaultProps = {

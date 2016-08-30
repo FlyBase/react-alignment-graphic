@@ -5,7 +5,9 @@ import AlignmentCanvas from './AlignmentCanvas';
 function AlignmentGraphic(props) {
     return (
         <ContainerDimensions>
-            { ({ width }) => <AlignmentCanvas width={width} {...props} /> }
+        { ({ width }) => (
+            <AlignmentCanvas {...props} width={width} />
+        )}
         </ContainerDimensions>
     );
 }
