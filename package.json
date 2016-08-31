@@ -1,7 +1,7 @@
 {
   "name": "react-alignment-graphic",
-  "version": "1.0.1",
-  "description": "react-alignment-graphic React component",
+  "version": "1.0.2",
+  "description": "A React component for generating BLAST overview graphics.",
   "main": "lib/index.js",
   "jsnext:main": "es/index.js",
   "module": "es/index.js",
@@ -35,7 +35,7 @@
   },
   "author": "Josh Goodman",
   "homepage": "",
-  "license": "MIT",
+  "license": "BSD",
   "repository": {
       "type": "git",
       "url" : "git@github.com:FlyBase/react-alignment-graphic.git"

@@ -28,7 +28,7 @@ function Hits(props) {
                 hspClickHandler={props.hspClickHandler}
             />
         );
-        currentY = currentY + (hitH);
+        currentY = currentY + (hitH); 
     }
 
     return (

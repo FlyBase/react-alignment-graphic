@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { Group, Text, Line } from 'react-konva';
-import { v4 } from 'node-uuid';
 
 function QueryTicks(props) {
     const {scale, y, tickLength, tickColor} = props;
@@ -14,7 +13,7 @@ function QueryTicks(props) {
         const y2 = y + tickLength;
 
         return (
-            <Group key={v4()}>
+            <Group key={x}>
                 <Line points={[x,y,x,y2]} stroke={tickColor} opacity={0.5} />
                 <Text x={x-10} y={y2} fill='black' text={tick} fontSize={12} />
             </Group>

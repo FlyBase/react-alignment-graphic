@@ -35,12 +35,13 @@ class AlignmentCanvas extends Component {
         const { blastResult } = this.props;
         const report = (blastResult['BlastOutput2']) ? blastResult.BlastOutput2[0].report : blastResult.report;
         const search = report.results.search;
+        const hits = search.hits.filter(this.props.hitFilter);
         const seqLen = search.query_len;
         const padding = 50;
-        const trackHeight = 11;
+        const trackHeight = 12;
         const canvasWidth = this.props.width - (padding * 2);
         let numHsps = 0;
-        search.hits.forEach((hit) => {
+        hits.forEach((hit) => {
             numHsps += hit.hsps.length;
         });
         const canvasHeight = ((numHsps * trackHeight) < 200) ? 200 : numHsps * trackHeight;
@@ -71,9 +72,10 @@ class AlignmentCanvas extends Component {
                     </Group>
                     <Group> 
                         <Query scale={scale} rectStart={rectStart} rectWidth={scale(seqLen) - rectStart} />
-                        <Hits y={80} hits={search.hits} scale={scale}
+                        <Hits y={80} hits={hits} scale={scale}
                             hitClickHandler={this.props.hitClickHandler}
-                            hspClickHandler={this.props.hspClickHandler} />
+                            hspClickHandler={this.props.hspClickHandler}
+                        />
                     </Group>
                     <Group visible={this.state.isRulerVisible}>
                         <SlideRule 
@@ -106,10 +108,12 @@ AlignmentCanvas.propTypes = {
     width: PropTypes.number.isRequired,
     hitClickHandler: PropTypes.func,
     hspClickHandler: PropTypes.func,
+    hitFilter: PropTypes.func,
 };
 
 AlignmentCanvas.defaultProps = {
     hitClickHandler: () => {},
     hspClickHandler: () => {},
+    hitFilter: () => { return true; }
 };
 export default AlignmentCanvas;

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Group, Rect } from 'react-konva';
-import { v4 } from 'node-uuid';
 
 import Hsp from './Hsp';
 
@@ -14,8 +13,8 @@ class Hit extends Component {
         };
     }
 
-    toggleActive(evt, isActive = this.state.isActive) {
-        this.setState({isActive: !isActive});
+    toggleActive(evt) {
+        this.setState({isActive: !this.state.isActive});
     }
 
     handleClickTap(evt) {
@@ -35,24 +34,26 @@ class Hit extends Component {
             hspElems.push(
                 <Hsp hsp={hsp} x={x} y={currentY} key={hsp.num}
                     width={width} height={height}
-                    score={hsp.score}
+                    score={hsp.bit_score}
                     highlight={this.state.isActive}
-                    hspClickHandler={this.props.hspClickHandler} />
+                    hspClickHandler={this.props.hspClickHandler}
+                    />
             );
             currentY += (3 + height);
         }
 
         return (
-            <Group onClick={this.handleClickTap} onTap={this.handleClickTap}>
+            <Group
+                onMouseEnter={this.toggleActive}
+                onMouseLeave={this.toggleActive}
+                onClick={this.handleClickTap}
+                onTap={this.handleClickTap}>
                 {/** 
-                   Event listening shape.
-                   Leave out for now.
+                   Shape for event listening only.
+                  **/}
                 <Rect
                     x={hitX} y={y} width={hitW} height={hitH}
-                    opacity={0} fill='black' 
-                    onMouseEnter={this.toggleActive}
-                    onMouseLeave={this.toggleActive}
-                    /> **/}
+                    opacity={0} fill='white' />
                 {hspElems}
             </Group>
         );

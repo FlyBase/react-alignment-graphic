@@ -29,17 +29,17 @@ class Hsp extends Component {
     scoreToColor(score, highlight = false) {
         if (highlight) {
             if (score >= 200) return '#E57373';
-            if (score < 200 && score >= 80) return '#F06292';
+            if (score < 200 && score >= 80) return '#BA68C8';
             if (score < 80 && score >= 50) return '#81C784';
             if (score < 50 && score >= 40) return '#64B5F6';
-            if (score < 40) return '#757575';
+            if (score < 40) return '#E0E0E0';
         }
         else {
             if (score >= 200) return '#E53935';
-            if (score < 200 && score >= 80) return '#D81B60';
+            if (score < 200 && score >= 80) return '#8E24AA';
             if (score < 80 && score >= 50) return '#43A047';
             if (score < 50 && score >= 40) return '#1E88E5';
-            if (score < 40) return '#E0E0E0';
+            if (score < 40) return '#757575';
         }
         return '#000000';
     }

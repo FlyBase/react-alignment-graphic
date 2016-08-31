@@ -82,8 +82,16 @@ render(React.createClass({
         );
     }
 }),document.getElementsById('#graphic'));
-
 ```
+
+## Filtering
+
+If you want to filter the hits displayed, you can pass a filter callback funciton via the 
+`hitFilter` property.
+
+The callback should follow the [Array.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+syntax.  The element passed to it is the hit object in the JSON result.
+
 ## JSON Format
 
 This plugin has only been tested with the JSON format used by NCBI BLAST+ 2.4.0.

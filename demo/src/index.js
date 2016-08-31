@@ -12,6 +12,16 @@ function hspClick(evt, hsp) {
     console.info("HSP score is " + hsp.score);
 }
 
+// Show only the top 3 hits.
+function filter(hit,i) {
+    if (i < 3) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 let Demo = React.createClass({
     render() {
         return (
@@ -19,14 +29,19 @@ let Demo = React.createClass({
                 <h1>react-alignment-graphic Demo</h1>
                 <h2>Fixed width</h2>
                 <div style={{width: '900px' }}>
-                    <AlignmentGraphic blastResult={jsonResult} hitClickHandler={hitClick} hspClickHandler={hspClick} />
+                    <AlignmentGraphic blastResult={jsonResult}
+                        hitClickHandler={hitClick}
+                        hspClickHandler={hspClick}
+                    />
                 </div>
-                <h2>Responsive</h2>
+                <h2>Responsive w/ filter</h2>
                 <div>
                     <h1>react-alignment-graphic Demo</h1>
                     <AlignmentGraphic blastResult={jsonResult.BlastOutput2[0]}
                         hitClickHandler={hitClick}
-                        hspClickHandler={hspClick} />
+                        hspClickHandler={hspClick}
+                        hitFilter={filter}
+                    />
                 </div>
             </div>
         );
