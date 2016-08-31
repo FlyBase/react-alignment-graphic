@@ -92,6 +92,32 @@ If you want to filter the hits displayed, you can pass a filter callback funcito
 The callback should follow the [Array.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
 syntax.  The element passed to it is the hit object in the JSON result.
 
+### Example
+```jsx
+// Only display hits that have at least one HSP with a bit score of >100
+function filter(hit,i) {
+    const scores = hit.hsps.map((hsp) => hsp.bit_score);
+    const maxScore = Math.max(scores);
+    if (maxScore > 100) {
+        return true;
+    }
+    return false;
+}
+
+// The following will render a canvas image in the <div id="graphic"></div> element.
+render(React.createClass({
+    render() {
+        return (
+            <div>
+                <AlignmentGraphic blastResult={jsonResult.BlastOutput2[0]}
+                    hitFilter={filter}
+                />
+            </div>
+        );
+    }
+}),document.getElementsById('#graphic'));
+```
+
 ## JSON Format
 
 This plugin has only been tested with the JSON format used by NCBI BLAST+ 2.4.0.

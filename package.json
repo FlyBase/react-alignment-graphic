@@ -1,6 +1,6 @@
 {
   "name": "react-alignment-graphic",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A React component for generating BLAST overview graphics.",
   "main": "lib/index.js",
   "jsnext:main": "es/index.js",
